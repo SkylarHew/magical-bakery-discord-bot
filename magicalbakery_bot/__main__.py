@@ -3,7 +3,7 @@ import os
 import hikari
 import lightbulb
 
-import lightbulb_bot
+import magicalbakery_bot
 
 
 def create_bot() -> lightbulb.BotApp:
@@ -16,11 +16,11 @@ def create_bot() -> lightbulb.BotApp:
         token=token,
         prefix="!",
         intents=hikari.Intents.ALL,
-        default_enabled_guilds=lightbulb_bot.GUILD_ID,
+        default_enabled_guilds=magicalbakery_bot.GUILD_ID,
     )
 
     # Load all extensions.
-    bot.load_extensions_from("./lightbulb_bot/commands")
+    bot.load_extensions_from("./magicalbakery_bot/commands")
 
     return bot
 
