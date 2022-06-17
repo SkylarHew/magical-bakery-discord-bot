@@ -1,6 +1,6 @@
 import datetime
+import magicalbakery_bot.modules.edit_user_data as edit_user_data
 import sqlite3
-import os
 
 import hikari
 import lightbulb
@@ -22,21 +22,7 @@ async def add_user(ctx: lightbulb.context.Context) -> None:
         await ctx.respond("That user is not in the server.")
         return
 
-    user_id = int(target.id)
-    db = sqlite3.connect('magicalbakery_bot/data/main.db')
-    cursor = db.cursor()
-    cursor.execute(f"SELECT user_id FROM user_data WHERE user_id = {user_id}")
-    result = cursor.fetchone()
-    if result:
-        await ctx.respond(f"{target.display_name} has already been added.")
-    else:
-        money = 0
-        last_checkin = str(datetime.datetime.now())
-        cursor.execute('''INSERT INTO user_data(user_id, money, last_checkin)
-                        VALUES(:user_id, :money, :last_checkin)''',
-                        {'user_id':user_id, 'money':money, 'last_checkin':last_checkin})
-        db.commit()
-        await ctx.respond(f"Added {target.display_name} to database.")
+    await ctx.respond(edit_user_data.add_user(target))
 
 
 def load(bot: lightbulb.BotApp):
